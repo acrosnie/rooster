@@ -32,10 +32,19 @@ if [ "$?" = "0" -a "$distro" = "Ubuntu" ]; then
     fi
 fi
 
-# fedora with dnf
-dnfstatus="`dnf -h`"
-if [ "$?" = "0" ]; then
-    sudo dnf install -y unzip pkgconfig libX11-devel libXmu-devel
+# fedora/centos with dnf/yum
+dnf -h > /dev/null
+dnfstatus="$?"
+yum -h > /dev/null
+yumstatus="$?"
+if [ "$dnfstatus" = "0" ]; then
+    sudo dnf install -y gcc unzip pkgconfig libX11-devel libXmu-devel
+    if [ "$?" != "0" ]; then
+        echo 'aborting: could not install rooster dependencies' 1>&2
+        exit 1
+    fi
+elif [ "$yumstatus" = "0" ]; then
+    sudo yum install -y gcc unzip pkgconfig libX11-devel libXmu-devel
     if [ "$?" != "0" ]; then
         echo 'aborting: could not install rooster dependencies' 1>&2
         exit 1
