@@ -11,6 +11,7 @@ else
     export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
+# ubuntu
 distro="`lsb_release -is`"
 if [ "$?" = "0" -a "$distro" = "Ubuntu" ]; then
     version="`lsb_release -rs`"
@@ -28,6 +29,16 @@ if [ "$?" = "0" -a "$distro" = "Ubuntu" ]; then
                 exit 1
             fi
         fi
+    fi
+fi
+
+# fedora with dnf
+dnfstatus="`dnf -h`"
+if [ "$?" = "0" ]; then
+    sudo dnf check-update && sudo dnf install unzip pkgconfig libX11-devel libXmu-devel
+    if [ "$?" != "0" ]; then
+        echo 'aborting: could not install rooster dependencies' 1>&2
+        exit 1
     fi
 fi
 
