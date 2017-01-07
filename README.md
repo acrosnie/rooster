@@ -10,6 +10,8 @@ To install, open a terminal and run this command:
 curl -sSL https://raw.githubusercontent.com/conradkleinespel/rooster/master/install.sh | sh
 ```
 
+The script above has been tested on Ubuntu (14.04, 16.04, 16.10) and Fedora 25. If you use another operating system, you might need to install `unzip`, `pkg-config`, `libx11-dev` and `libxmu-dev` packages first.
+
 Once you have installed Rooster, you can view documentation with:
 ```shell
 rooster --help
